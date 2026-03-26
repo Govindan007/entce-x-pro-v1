@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package entce;
+
+option go_package = "github.com/entce-x/probe/proto";
+
+// The Enterprise Threat Telemetry service
+service ThreatIntelligence {
+  // Stream telemetry from the probe to the control plane
+  rpc StreamEvents(stream SecurityEvent) returns (stream MitigationAction);
+}
+
+// Data captured at the kernel level by eBPF
+message SecurityEvent {
+  string client_id = 1;
+  string timestamp = 2;
+  string event_type = 3;    // e.g., "PROCESS_EXEC", "SOCKET_CONNECT"
+  string source_ip = 4;
+  string command_line = 5;  // The full command executed
+  int32 process_id = 6;
+  string metadata = 7;      // JSON string for additional context
+}
+
+// Actions returned by the AI agents
+message MitigationAction {
+  enum ActionType {
+    OBSERVE = 0;
+    RATE_LIMIT = 1;
+    KILL_PROCESS = 2;
+    SHUN_IP = 3;
+  }
+  ActionType type = 1;
+  string target = 2;        // The IP or PID to act upon
+  string reasoning = 3;     // The AI's explanation
+  int32 duration_sec = 4;   // Reversible action timeout
+}

