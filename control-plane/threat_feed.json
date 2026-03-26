@@ -1,110 +1,65 @@
 [
   {
-    "id": "1774261210.021364",
-    "timestamp": "10:20:10",
+    "id": "1774552204.055211",
+    "timestamp": "19:10:04",
     "client": "client-wsl-victim-01",
-    "command": "/usr/bin/snap",
-    "reasoning": "Executing the `snap` command without arguments is a benign action that typically displays help, but its use could indicate an attempt to understand system capabilities or manage software.",
-    "action": "OBSERVE",
-    "severity": "INFO"
-  },
-  {
-    "id": "1774261206.1327784",
-    "timestamp": "10:20:06",
-    "client": "client-wsl-victim-01",
-    "command": "/usr/lib/command-not-found",
-    "reasoning": "Executing the `command-not-found` utility directly is unusual but not inherently malicious, typically indicating benign user exploration or system debugging.",
-    "action": "OBSERVE",
-    "severity": "INFO"
-  },
-  {
-    "id": "1774261172.8280828",
-    "timestamp": "10:19:32",
-    "client": "client-wsl-victim-01",
-    "command": "/usr/bin/rm",
-    "reasoning": "The `rm` command is a destructive utility frequently used in critical attacks; its execution, even without arguments, warrants observation as a potential precursor to malicious activity.",
-    "action": "OBSERVE",
-    "severity": "INFO"
-  },
-  {
-    "id": "1774261034.8541536",
-    "timestamp": "10:17:14",
-    "client": "client-wsl-victim-01",
-    "command": "/usr/bin/run-parts",
-    "reasoning": "run-parts is a standard Linux utility commonly used by cron and other system services to execute scripts in specified directories, indicating benign administrative traffic.",
-    "action": "OBSERVE",
-    "severity": "INFO"
-  },
-  {
-    "id": "1774261031.5671687",
-    "timestamp": "10:17:11",
-    "client": "client-wsl-victim-01",
-    "command": "/bin/sh",
-    "reasoning": "Executing /bin/sh is a common technique for attackers to establish a shell after gaining initial access, indicating a critical post-exploitation phase requiring immediate termination.",
+    "command": "/usr/bin/curl",
+    "reasoning": "The sequence of `find` and `grep` for system reconnaissance, immediately followed by `curl`, strongly indicates an attempt to exfiltrate data or download malicious payloads, escalating to a critical attack.",
     "action": "KILL_PROCESS",
     "severity": "CRITICAL"
   },
   {
-    "id": "1774261010.3901355",
-    "timestamp": "10:16:50",
+    "id": "1774552190.743815",
+    "timestamp": "19:09:50",
     "client": "client-wsl-victim-01",
-    "command": "/usr/bin/mkdir",
-    "reasoning": "The 'mkdir' command is a standard utility for creating directories and is a common, benign operation in a Linux environment, requiring no immediate intervention without further context.",
+    "command": "/usr/bin/sleep",
+    "reasoning": "The 'sleep' command is benign and commonly used for delays in scripts, and the preceding commands are standard utilities that do not definitively indicate malicious activity.",
     "action": "OBSERVE",
     "severity": "INFO"
   },
   {
-    "id": "1774260969.3205411",
-    "timestamp": "10:16:09",
-    "client": "client-wsl-victim-01",
-    "command": "/usr/bin/systemd-tmpfiles",
-    "reasoning": "This is a standard systemd utility responsible for creating, deleting, and cleaning up temporary and volatile files and directories, typically run during boot or periodically by a timer.",
-    "action": "OBSERVE",
-    "severity": "INFO"
-  },
-  {
-    "id": "1774260965.4167788",
-    "timestamp": "10:16:05",
-    "client": "client-wsl-victim-01",
-    "command": "/proc/self/fd/9",
-    "reasoning": "This command attempts to execute an arbitrary file descriptor, a known technique used by malware and advanced threats for evasion and code execution.",
-    "action": "KILL_PROCESS",
-    "severity": "CRITICAL"
-  },
-  {
-    "id": "1774260957.5170279",
-    "timestamp": "10:15:57",
+    "id": "1774552184.5769413",
+    "timestamp": "19:09:44",
     "client": "client-wsl-victim-01",
     "command": "/usr/bin/cat",
-    "reasoning": "The 'cat' command executed without any arguments is not inherently malicious and typically waits for standard input, making it benign on its own but worth observing for subsequent actions or context.",
+    "reasoning": "The 'cat' command, following a series of reconnaissance tools like 'locale-check', 'locale', 'grep', and 'find', strongly indicates continued system information gathering, which is a key phase of reconnaissance.",
+    "action": "RATE_LIMIT",
+    "severity": "WARNING"
+  },
+  {
+    "id": "1774552175.566014",
+    "timestamp": "19:09:35",
+    "client": "client-wsl-victim-01",
+    "command": "/usr/bin/sleep",
+    "reasoning": "The 'sleep' command is benign and often used in scripts; while previous commands like 'find' could be reconnaissance, 'sleep' itself does not indicate an immediate critical threat.",
     "action": "OBSERVE",
     "severity": "INFO"
   },
   {
-    "id": "1774260874.4864652",
-    "timestamp": "10:14:34",
+    "id": "1774552171.204412",
+    "timestamp": "19:09:31",
     "client": "client-wsl-victim-01",
     "command": "/usr/bin/whoami",
-    "reasoning": "The 'whoami' command is commonly used by administrators to verify their current user context and does not pose an immediate threat.",
+    "reasoning": "The `whoami` command, following system information gathering tools like `grep` and `find`, indicates active reconnaissance to understand user privileges.",
     "action": "OBSERVE",
     "severity": "INFO"
   },
   {
-    "id": "1774260624.7643871",
-    "timestamp": "10:10:24",
+    "id": "1774552162.6985326",
+    "timestamp": "19:09:22",
     "client": "client-wsl-victim-01",
-    "command": "/usr/bin/whoami",
-    "reasoning": "The 'whoami' command is commonly used by administrators to verify their current user context and does not pose an immediate threat.",
+    "command": "/usr/bin/sleep",
+    "reasoning": "The 'sleep' command is benign and often used in scripts; while previous commands like 'find' could be reconnaissance, 'sleep' itself does not indicate an immediate critical threat.",
     "action": "OBSERVE",
     "severity": "INFO"
   },
   {
-    "id": "1774260536.9510505",
-    "timestamp": "10:08:56",
+    "id": "1774552157.6899567",
+    "timestamp": "19:09:17",
     "client": "client-wsl-victim-01",
-    "command": "/usr/bin/ls",
-    "reasoning": "The 'ls' command is a standard utility for listing directory contents, commonly used by users and administrators for navigation and inspection, and is benign in isolation.",
-    "action": "OBSERVE",
-    "severity": "INFO"
+    "command": "./attack.sh",
+    "reasoning": "The command './attack.sh' explicitly indicates malicious intent, is preceded by reconnaissance activity, and is directly linked to defense evasion tactics, necessitating immediate termination.",
+    "action": "KILL_PROCESS",
+    "severity": "CRITICAL"
   }
 ]
